@@ -1,0 +1,9 @@
+*.pfx
+*.key
+*.kdbx
+*.bak
+secrets/
+*.secret
+.env
+*.env
+*.log
