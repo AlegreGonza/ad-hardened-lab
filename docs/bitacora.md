@@ -58,28 +58,27 @@ Registro cronológico del proyecto. Cada entrada incluye acciones, decisiones y 
 **Pendiente**
 - Fase 3: OUs y grupos AGDLP.
 - Fase 4: Fine-Grained Password Policy, Protected Users, LAPS y corrección del desvío de Domain Admins.
-2026-10-20 — Fase 3 completa: OUs, grupos AGDLP y usuarios
 
-Acciones
+---
 
+## 2026-10-20 — Fase 3 completa: OUs, grupos AGDLP y usuarios
+
+**Acciones**
 1. Snapshot `pre-fase3` tomado antes de empezar.
 2. Script 10 (OUs): crea `_Administracion` (Tier0, Tier1, Tier2) y `Corp` (Usuarios, Equipos, Servidores, Grupos). Ejecutado en DC01. Segunda corrida: todas las OUs en `Ya existe`, sin duplicados.
 3. Script 11 (grupos AGDLP): lee `config/grupos.json` y valida los nombres antes de crear nada. Convención: `G_<Rol>` para globales y `DL_<Recurso>_<Permiso>` para dominio local. Creó 5 grupos. Una segunda corrida con un grupo nuevo en el JSON creó solo el faltante.
 4. Script 12 (usuarios): lee `config/users.json`, crea las cuentas en `OU=Usuarios,OU=Corp`, pide la contraseña inicial una vez por consola y agrega cada usuario a su grupo. Si algo falla, borra los usuarios creados en esa corrida. Resultado: 12 cuentas de prueba, 9 con grupo y 3 sin grupo.
 5. Repo: `config/ous.json`, `config/grupos.json`, `config/users.json` y los scripts 10, 11 y 12 subidos a `master`.
 
-Problemas y aprendizajes
+**Problemas y aprendizajes**
+- "Access denied" al crear usuarios: el mensaje era engañoso. La causa real fue la política de contraseñas del dominio, que la contraseña no cumplía. Lo confirmó el error `ADPasswordComplexityException` en el siguiente intento.
+- Cuenta parcial: `New-ADUser` crea el objeto antes de validar la contraseña. Si la contraseña falla, queda una cuenta deshabilitada sin contraseña. Se corrigió el script 12 con rollback de la corrida y aviso de cuentas deshabilitadas existentes.
+- Sesión sin elevar: `Domain Admins` aparece como `deny only` en una consola sin elevación. Hay que abrir PowerShell con "Ejecutar como administrador".
+- Ansible: queda para la tercera repetición (DC02, SRV01, WS01). Los scripts 10 a 12 leen los mismos JSON que va a usar.
 
-* "Access denied" al crear usuarios: el mensaje era engañoso. La causa real fue la política de contraseñas del dominio, que la contraseña no cumplía. Lo confirmó el error `ADPasswordComplexityException` en el siguiente intento.
-* Cuenta parcial: `New-ADUser` crea el objeto antes de validar la contraseña. Si la contraseña falla, queda una cuenta deshabilitada sin contraseña. Se corrigió el script 12 con rollback de la corrida y aviso de cuentas deshabilitadas existentes.
-* Sesión sin elevar: `Domain Admins` aparece como `deny only` en una consola sin elevación. Hay que abrir PowerShell con "Ejecutar como administrador".
-* Ansible: queda para la tercera repetición (DC02, SRV01, WS01). Los scripts 10 a 12 leen los mismos JSON que va a usar.
-
-Pendiente
-
-* Fase 4 (IAM): tomar snapshot `pre-fase4` antes de empezar.
-* Script 13: política de contraseñas general y FGPP por grupo, con `-WhatIf`. Va antes de crear usuarios reales.
-* Sacar `t0-gonza` de Domain Admins, con cuenta break-glass verificada antes.
-* Fase 0: PingCastle sobre `baseline-default`.
-* Prueba end-to-end de Sysmon en Wazuh Discover.
-
+**Pendiente**
+- Fase 4 (IAM): tomar snapshot `pre-fase4` antes de empezar.
+- Script 13: política de contraseñas general y FGPP por grupo, con `-WhatIf`. Va antes de crear usuarios reales.
+- Sacar `t0-gonza` de Domain Admins, con cuenta break-glass verificada antes.
+- Fase 0: PingCastle sobre `baseline-default`.
+- Prueba end-to-end de Sysmon en Wazuh Discover.
