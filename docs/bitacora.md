@@ -1,4 +1,4 @@
-# Bitácora — ad-hardened-lab
+﻿# Bitácora — ad-hardened-lab
 
 Registro cronológico del proyecto. Cada entrada incluye acciones, decisiones y pendientes. No se registran contraseñas, claves ni datos del host.
 
@@ -82,3 +82,4 @@ Pendiente
 * Sacar `t0-gonza` de Domain Admins, con cuenta break-glass verificada antes.
 * Fase 0: PingCastle sobre `baseline-default`.
 * Prueba end-to-end de Sysmon en Wazuh Discover.
+
