@@ -1,0 +1,13 @@
+﻿{
+  "protegerContraBorrado": true,
+  "ouDestino": "OU=Grupos,OU=Corp",
+  "gruposGlobales": [
+    { "nombre": "G_Soporte_Nivel1", "descripcion": "Usuarios de soporte nivel 1" },
+    { "nombre": "G_Administradores_Servidores", "descripcion": "Administradores de servidores" },
+    { "nombre": "G_Equipo_Redes", "descripcion": "Equipo de redes" }
+  ],
+  "gruposDominioLocal": [
+    { "nombre": "DL_FS01_Lectura", "descripcion": "Permiso de lectura en FS01" },
+    { "nombre": "DL_FS01_Escritura", "descripcion": "Permiso de escritura en FS01" }
+  ]
+}
