@@ -1,0 +1,11 @@
+﻿{
+  "protegerContraBorrado": true,
+  "ouAdministracion": {
+    "nombre": "_Administracion",
+    "tiers": ["Tier0", "Tier1", "Tier2"]
+  },
+  "ouCorp": {
+    "nombre": "Corp",
+    "subOUs": ["Usuarios", "Equipos", "Servidores", "Grupos"]
+  }
+}
