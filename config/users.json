@@ -1,0 +1,7 @@
+﻿{
+  "usuarios": [
+    { "usuario": "ana.martinez", "nombre": "Ana", "apellido": "Martinez", "grupo": "G_Soporte_Nivel1" },
+    { "usuario": "diego.sosa", "nombre": "Diego", "apellido": "Sosa", "grupo": "G_Administradores_Servidores" },
+    { "usuario": "jorge.medina", "nombre": "Jorge", "apellido": "Medina", "grupo": "" }
+  ]
+}
